@@ -98,6 +98,11 @@ describe('Hydra HTTP plugin', () => {
         expect(res.status).to.equal(200);
         expect(res.data).to.equal('Hello World!');
 
+        try {
+            res = await hydra.http.request('http://localhost:5050/v1/welcome222');
+        } catch (err) {
+            expect(err.response.status).to.equal(503);
+        }
         server.close();
     });
 

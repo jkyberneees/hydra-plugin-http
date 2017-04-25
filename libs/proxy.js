@@ -54,7 +54,16 @@ module.exports = (hydra, config) => {
                         target: await hydra.http.proxy.translate(req, true)
                     });
                 } catch (err) {
-                    console.log(err);
+                    let msgparts = (err.message || '500:Internal Server Error!').split(':', 2);
+                    if (msgparts.length > 1) {
+                        res.statusCode = parseInt(msgparts[0]);
+                        res.statusText = msgparts[1];
+                    } else {
+                        res.statusCode = 500;
+                        res.statusText = msgparts[0];
+                    }
+
+                    res.end();
                 }
             });
         }
