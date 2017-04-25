@@ -1,41 +1,74 @@
 const assert = require('assert');
 const axios = require('axios');
 
+
+
 module.exports = (hydra, config) => {
+    const trigger = (name, level, data) => hydra.emit('http-plugin-lb', {
+        name,
+        level,
+        data
+    });
+
     config.lb = Object.assign({
-        strategy: 'race'
+        strategy: {
+            name: 'race',
+            timeout: 3000,
+            nodes: 3,
+            healthPath: '_health'
+        }
     }, config.lb || {});
 
-    return {
-        translate: async serviceName => {
-            let presences = await hydra.getServicePresence(serviceName);
-            assert(presences.length > 0, `The target '${serviceName}' service is not available!`);
+    assert(config.lb.strategy.handler || handlers[config.lb.strategy.name],
+        `The load balancer '${config.lb.strategy.name}' strategy handler is required!`);
 
-            return await handlers[config.lb.strategy](serviceName, presences, hydra);
+    return {
+        translate: async service => {
+            try {
+                let now = new Date().getTime();
+                let presences = await hydra.getServicePresence(service);
+                assert(presences.length > 0, '503:Service Unavailable!');
+
+                let handler = config.lb.strategy.handler || handlers[config.lb.strategy.name];
+                let url = await handler(config.lb.strategy, presences, hydra, service);
+
+                trigger('translate', 'info', {
+                    service,
+                    translation: url,
+                    strategy: config.lb.strategy.name,
+                    responseTime: new Date().getTime() - now
+                });
+
+                return url;
+            } catch (err) {
+                trigger('translate', 'error', err);
+
+                throw err;
+            }
         }
     }
 }
 
 const handlers = {
-    race: async(serviceName, presences, hydra) => {
+    race: async(config, presences, hydra, service) => {
         let calls = [];
-        presences.slice(0, Math.min(3, presences.length)).forEach(presence => {
-            let prefix = base(presence);
+        presences.slice(0, Math.min(config.nodes, presences.length)).forEach(presence => {
+            let baseUrl = `http://${presence.ip}:${presence.port}`;
 
             calls.push(new Promise((resolve, reject) => {
                 axios({
                         method: 'get',
-                        url: prefix + '/_health',
-                        timeout: 3000
+                        url: baseUrl + '/' + config.healthPath,
+                        timeout: config.timeout
                     })
                     .then((response) => {
-                        resolve(prefix);
+                        resolve(baseUrl);
                     }).catch(() => {});
+
+                setTimeout(() => reject(new Error('503:Service Unavailable!')), config.timeout);
             }));
         });
 
         return await Promise.race(calls);
     }
 }
-
-const base = (presence) => `http://${presence.ip}:${presence.port}`;

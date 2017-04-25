@@ -25,6 +25,11 @@
   "homepage": "https://github.com/jkyberneees/hydra-plugin-http#readme",
   "dependencies": {
     "axios": "^0.16.1",
-    "http-proxy": "^1.16.2"
+    "http-proxy": "^1.16.2",
+    "route-parser": "0.0.5",
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
   }
 }
