@@ -1,8 +1,6 @@
 const assert = require('assert');
 const axios = require('axios');
 
-
-
 module.exports = (hydra, config) => {
     const trigger = (name, level, data) => hydra.emit('http-plugin-lb', {
         name,
