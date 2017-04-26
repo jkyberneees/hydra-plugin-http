@@ -22,7 +22,7 @@ module.exports = (hydra, config) => {
     }
 
     return {
-        getConfig: () => config.proxy,
+        config: config.proxy,
         findService: async(path, method = 'GET') => {
             let routes = routesCache || await hydra.getAllServiceRoutes();
 

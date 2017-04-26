@@ -32,7 +32,7 @@ hydra.use(new HydraHttpPlugin({
         console.log(err || 'Hydra proxy server running on port: ' + hydra.config.servicePort);
         if (!err) {
             let rawHttpProxy = hydra.http.proxy.attach(server);
-            console.log(' - routes cache enabled: ' + hydra.http.proxy.getConfig().routesCache);
+            console.log(' - routes cache enabled: ' + hydra.http.proxy.config.routesCache);
 
             console.log();
             console.log(' You can try any request with the schema: ');
