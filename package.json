@@ -1,6 +1,6 @@
 {
   "name": "hydra-plugin-http",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hydra plugin that adds traditional HTTP requests, routing and proxy capabilities to your hydra micro-service cluster.",
   "main": "index.js",
   "scripts": {

@@ -15,10 +15,10 @@ hydra.use(new HydraHttpPlugin());
 // ...
 await hydra.init({
     hydra: {
-        'serviceName': 'hydra-router',
-        'serviceDescription': 'Bullet-proof HTTP proxy server on top of Hydra',
+        'serviceName': 'your-hydra-service-name',
+        'serviceDescription': 'Just another hydra service...',
         'serviceIP': '127.0.0.1',
-        'servicePort': 5000,
+        'servicePort': 0,
         'serviceType': 'native',
         'serviceVersion': '1.0.0',
         'redis': {
