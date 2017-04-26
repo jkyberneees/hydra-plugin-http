@@ -53,5 +53,5 @@ res = await hydra.http.request('https://www.google.de/?q=hydra+microservices');
 Demos available into [demos folder](demos) on the git repository: https://github.com/jkyberneees/hydra-plugin-http
 
 # Next topics
-- [Service Load Balancer](docs/lb.md)
+- [The Service Load Balancer](docs/lb.md)
 - [The HTTP proxy/router server](docs/proxy.md)
