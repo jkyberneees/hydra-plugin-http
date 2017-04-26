@@ -77,7 +77,7 @@ module.exports = (hydra, config) => {
                         target: await hydra.http.proxy.translate(req, true)
                     });
                 } catch (err) {
-                    let msgparts = (err.message || '500:Internal Server Error!').split(':', 2);
+                    let msgparts = (err.message || '500:Internal Server Error').split(':', 2);
                     if (msgparts.length > 1) {
                         res.statusCode = parseInt(msgparts[0]);
                         res.statusMessage = msgparts[1];
