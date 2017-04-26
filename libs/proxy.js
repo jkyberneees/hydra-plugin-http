@@ -3,10 +3,27 @@ const url = require('url');
 const assert = require('assert');
 
 module.exports = (hydra, config) => {
+    config.proxy = Object.assign({
+        routesCache: true
+    }, config.proxy || {});
+
+    let routesCache = null;
+    if (config.proxy.routesCache) {
+        hydra.getAllServiceRoutes().then(routes => {
+            routesCache = routes;
+
+            hydra.on('message', async(msg) => {
+                if (msg.bdy.action === 'refresh') {
+                    routesCache[msg.bdy.serviceName] = await hydra._getRoutes(msg.bdy.serviceName);
+                }
+            });
+        });
+    }
 
     return {
+        getConfig: () => config.proxy,
         findService: async(path, method = 'GET') => {
-            let routes = await hydra.getAllServiceRoutes();
+            let routes = routesCache || await hydra.getAllServiceRoutes();
 
             for (let service in routes) {
                 let index = path.indexOf('/' + service);
@@ -48,7 +65,7 @@ module.exports = (hydra, config) => {
 
         attach: (httpServer) => {
             const proxy = require('http-proxy').createProxyServer(config.proxy || {});
-            server.addListener("request", async(req, res) => {
+            httpServer.addListener("request", async(req, res) => {
                 try {
                     proxy.web(req, res, {
                         target: await hydra.http.proxy.translate(req, true)
@@ -66,6 +83,8 @@ module.exports = (hydra, config) => {
                     res.end();
                 }
             });
+
+            return proxy;
         }
     }
 }

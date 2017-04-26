@@ -8,7 +8,7 @@ describe('Hydra HTTP plugin', () => {
 
         await hydra.init({
             hydra: {
-                'serviceName': 'express-service-test',
+                'serviceName': 'hydra-router',
                 'serviceDescription': 'Basic express service on top of Hydra',
                 'serviceIP': '127.0.0.1',
                 'servicePort': 3000,
@@ -89,7 +89,7 @@ describe('Hydra HTTP plugin', () => {
 
     it('proxy.attach', async() => {
         let http = require('http');
-        server = http.createServer();
+        let server = http.createServer();
 
         hydra.http.proxy.attach(server);
         server.listen(5050);
