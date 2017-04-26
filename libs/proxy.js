@@ -1,6 +1,7 @@
 const Route = require('route-parser');
 const url = require('url');
 const assert = require('assert');
+const uuid = require('uuid');
 
 module.exports = (hydra, config) => {
     config.proxy = Object.assign({
@@ -65,6 +66,11 @@ module.exports = (hydra, config) => {
 
         attach: (httpServer) => {
             const proxy = require('http-proxy').createProxyServer(config.proxy || {});
+            proxy.on('proxyReq', function (proxyReq, req, res, options) {
+                if (!proxyReq.headers['x-request-id'])
+                    proxyReq.setHeader('X-Request-ID', uuid.v4());
+            });
+
             httpServer.addListener("request", async(req, res) => {
                 try {
                     proxy.web(req, res, {
@@ -74,10 +80,10 @@ module.exports = (hydra, config) => {
                     let msgparts = (err.message || '500:Internal Server Error!').split(':', 2);
                     if (msgparts.length > 1) {
                         res.statusCode = parseInt(msgparts[0]);
-                        res.statusText = msgparts[1];
+                        res.statusMessage = msgparts[1];
                     } else {
                         res.statusCode = 500;
-                        res.statusText = msgparts[0];
+                        res.statusMessage = msgparts[0];
                     }
 
                     res.end();
