@@ -9,10 +9,10 @@ describe('Hydra HTTP plugin', () => {
         await hydra.init({
             hydra: {
                 'serviceName': 'hydra-router',
-                'serviceDescription': 'Basic express service on top of Hydra',
+                'serviceDescription': 'Native service on top of Hydra',
                 'serviceIP': '127.0.0.1',
                 'servicePort': 3000,
-                'serviceType': 'express',
+                'serviceType': 'native',
                 'serviceVersion': '1.0.0',
                 'redis': {
                     'host': '127.0.0.1',
