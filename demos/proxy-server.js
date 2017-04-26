@@ -4,7 +4,8 @@ const HydraHttpPlugin = require('./../index').HydraHttpPlugin;
 hydra.use(new HydraHttpPlugin({
     proxy: {
         routesCache: true,
-        // any of the http-proxy module options params https://www.npmjs.com/package/http-proxy#options
+        // optional http-proxy module config params https://www.npmjs.com/package/http-proxy#options 
+        // excluding built-in http server instantiation params, which will be excluded
     }
 }));
 
