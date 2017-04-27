@@ -21,6 +21,7 @@ module.exports = (hydra, config) => {
         `The load balancer '${config.lb.strategy.name}' strategy handler is required!`);
 
     return {
+        config: config.lb,
         translate: async service => {
             try {
                 let now = new Date().getTime();
