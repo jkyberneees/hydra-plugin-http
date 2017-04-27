@@ -50,7 +50,7 @@ res = await hydra.http.request('https://www.google.de/?q=hydra+microservices');
 > The **request** object is literally an instance of *axios*, with automatic URL resolving for internal micro-services. As simple as it can be ;)  
 > Any URL with the schema */:servicename/:route* or */:route*, will be automatically translated into a valid URL in the micro-service cluster. 
 
-### Capturing request events
+### Capturing request events for pre/post processing
 ```js
 hydra.on('http-plugin-request', e => {
     
