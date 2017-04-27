@@ -6,6 +6,7 @@ Hydra plugin that enables traditional HTTP requests, routing and proxy capabilit
 ```bash
 npm i hydra-plugin-http --save
 ```
+> This plugin requires hydra version >1.2.10
 ## Register the plugin
 ```js
 const hydra = require('hydra');
