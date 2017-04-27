@@ -67,7 +67,7 @@ module.exports = (hydra, config) => {
         attach: (httpServer) => {
             const proxy = require('http-proxy').createProxyServer(config.proxy || {});
             proxy.on('proxyReq', function (proxyReq, req, res, options) {
-                if (!proxyReq.headers['x-request-id'])
+                if (!proxyReq.getHeader('x-request-id'))
                     proxyReq.setHeader('X-Request-ID', uuid.v4());
             });
 
