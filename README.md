@@ -62,4 +62,4 @@ Demos available into [demos folder](demos) on the git repository: https://github
 
 # Next topics
 - [The Service Load Balancer](docs/lb.md)
-- [The HTTP Proxy/Router server](docs/proxy.md)
+- [The HTTP Proxy/Router](docs/proxy.md)
