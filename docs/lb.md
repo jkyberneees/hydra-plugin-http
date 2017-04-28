@@ -38,3 +38,9 @@ let lbConfig = hydra.http.lb.config;
 // get the URL base for a custom service name
 let urlBase = await hydra.http.lb.translate('service-name');
 ```
+### Capturing lb events for post processing and monitoring
+```js
+hydra.on('http-plugin-lb', e => {
+    
+});
+```
