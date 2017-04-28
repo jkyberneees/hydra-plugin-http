@@ -66,3 +66,10 @@ hydra.use(new HydraHttpPlugin({}));
     });
 })();
 ```
+### http-proxy module integration
+For advanced users looking for the http-proxy module integration internals, is just tha simple:
+```js
+proxy.web(req, res, {
+    target: await hydra.http.proxy.translate(req, true)
+});
+```
