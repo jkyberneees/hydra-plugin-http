@@ -13,6 +13,7 @@ module.exports = (hydra, config) => {
         config.headers['X-Request-ID'] = config.headers['X-Request-ID'] || uuid.v4();
         if (config.url.startsWith('/')) {
             config.url = await hydra.http.proxy.translate(config);
+            config.targetHydraCluster = true;
         }
 
         trigger('request', 'info', config);

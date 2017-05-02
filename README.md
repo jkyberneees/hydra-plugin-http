@@ -53,7 +53,10 @@ res = await hydra.http.request('https://www.google.de/?q=hydra+microservices');
 ### Capturing request events for pre/post processing
 ```js
 hydra.on('http-plugin-request', e => {
-    
+    // example of how to set the Authorization header on internal calls
+    if ('request' == e.name && 'info' == e.name.level && e.data.targetHydraCluster) {
+        e.data.headers['Authorization'] = `Bearer ${getJwtToken()}`;
+    }
 });
 ```
 
