@@ -18,6 +18,18 @@ describe('Hydra HTTP plugin', () => {
                     'host': '127.0.0.1',
                     'port': 6379,
                     'db': 15
+                },
+                "plugins": {
+                    "hydra-plugin-http": {
+                        lb: {
+                            strategy: {
+                                name: 'race', // strategy name
+                                timeout: 3000, // call timeout
+                                nodes: 3, // number of nodes to call
+                                healthPath: '_health' // health check endpoint, for example: http://127.0.0.1:3000/_health
+                            }
+                        }
+                    }
                 }
             }
         });

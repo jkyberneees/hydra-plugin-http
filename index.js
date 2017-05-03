@@ -11,7 +11,14 @@ class HydraHttpPlugin extends HydraPlugin {
     }
 
     setConfig(hConfig) {
+        super.setConfig(hConfig);
+
         this.config.hydra = hConfig;
+        this.configChanged(this.opts);
+    }
+
+    configChanged(opts = {}) {
+        this.config = Object.assign(this.config, opts);
     }
 
     onServiceReady() {
