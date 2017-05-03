@@ -26,6 +26,12 @@ await hydra.init({
             'host': '127.0.0.1',
             'port': 6379,
             'db': 15
+        },
+        'plugins': {
+            'hydra-plugin-http': { // the plugin can be configured in this point or using the constructor
+                'lb': {},
+                'proxy': {}
+            }
         }
     }
 });
