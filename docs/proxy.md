@@ -3,7 +3,7 @@ The hydra-plugin-http also introduce awesome core proxy/routing features.
 The responsibilities of this component can be described as:
 * Finding an online service who is serving a target HTTP endpoint.
 * Translate a service-name to a base URL targeting the optimum computing node. To accomplish this function it uses the [Load Balancer](lb.md).
-* By using the battle-tested node [http-proxy](https://github.com/nodejitsu/node-http-proxy) module, it is able to expose an HTTP proxy that is able to proxy HTTP requests to internal micro-services. This process also does route's matching to select the appropriated node.
+* By using the battle-tested node [http-proxy](https://github.com/nodejitsu/node-http-proxy) module, it is able to expose an HTTP proxy that route requests to internal micro-services. This process also does route's matching to select the appropriated node.
 
 ## Configuration
 ```js
@@ -67,7 +67,7 @@ hydra.use(new HydraHttpPlugin({}));
 })();
 ```
 ### http-proxy module integration
-For advanced users looking for the http-proxy module integration internals, is just tha simple:
+For advanced users looking for the http-proxy module integration internals, is just that simple:
 ```js
 proxy.web(req, res, {
     target: await hydra.http.proxy.translate(req, true)
