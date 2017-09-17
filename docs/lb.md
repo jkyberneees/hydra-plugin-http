@@ -36,7 +36,7 @@ hydra.use(new HydraHttpPlugin({
             handler: async(config, presences, hydra, service) => {
                 let service = presences[0]; // presences[0] contains the presence details of the last node who reported available
 
-                return `http://${service.ip || service.hostName}:${service.port}`;
+                return `http://${service.ip}:${service.port}`;
             }
         }
     }

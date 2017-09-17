@@ -7,7 +7,7 @@ const handlers = {
   race: async (config, presences) => {
     const calls = [];
     presences.slice(0, Math.min(config.nodes, presences.length)).forEach((presence) => {
-      const baseUrl = `http://${presence.ip || presence.hostName}:${presence.port}`;
+      const baseUrl = `http://${presence.ip}:${presence.port}`;
 
       calls.push(
         new Promise((resolve, reject) => {
@@ -32,7 +32,7 @@ const handlers = {
   'last-presence': (config, presences) => {
     const srv = presences[0];
 
-    return `http://${srv.ip || srv.hostName}:${srv.port}`;
+    return `http://${srv.ip}:${srv.port}`;
   },
 };
 
