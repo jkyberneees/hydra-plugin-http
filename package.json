@@ -1,7 +1,8 @@
 {
   "name": "hydra-plugin-http",
-  "version": "0.3.3",
-  "description": "Hydra plugin that adds traditional HTTP requests, routing and proxy capabilities to your hydra micro-service cluster.",
+  "version": "1.0.0",
+  "description":
+    "Hydra plugin that adds traditional HTTP requests, routing and proxy capabilities to your hydra micro-service cluster.",
   "main": "index.js",
   "scripts": {
     "test": "mocha tests"
@@ -10,13 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/jkyberneees/hydra-plugin-http.git"
   },
-  "keywords": [
-    "http",
-    "hydra",
-    "request",
-    "router",
-    "proxy"
-  ],
+  "keywords": ["http", "hydra", "request", "router", "proxy"],
   "author": "Rolando Santamaria Maso <kyberneees@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -30,15 +25,17 @@
     "uuid": "3.x.x"
   },
   "devDependencies": {
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "eslint": "^4.7.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.3.0"
   },
   "engines": {
     "node": ">=7.x"
   },
-  "files": [
-    "LICENSE",
-    "README.md",
-    "index.js",
-    "libs/"
-  ]
+  "files": ["LICENSE", "README.md", "index.js", "libs/"]
 }
