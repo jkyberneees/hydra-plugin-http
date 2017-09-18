@@ -69,7 +69,7 @@ module.exports = (hydra, config) => {
 
     translate: async (req, prefixOnly = false) => {
       const path = url.parse(req.url).path;
-      const service = await hydra.http.proxy.findService(path, config.method);
+      const service = await hydra.http.proxy.findService(path, req.method);
       assert(service, '503:Service Unavailable!');
       req.url = req.url.replace(path, service.path);
 
