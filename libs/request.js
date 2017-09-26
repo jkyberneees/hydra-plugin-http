@@ -8,7 +8,7 @@ module.exports = (hydra) => {
     hydra.emit('http-plugin-request', {
       name,
       level,
-      data,
+      data
     });
 
   axios.interceptors.request.use(
@@ -27,7 +27,7 @@ module.exports = (hydra) => {
       trigger('request', 'error', err);
 
       return Promise.reject(err);
-    },
+    }
   );
 
   axios.interceptors.response.use(
@@ -40,7 +40,7 @@ module.exports = (hydra) => {
       trigger('response', 'error', err);
 
       return Promise.reject(err);
-    },
+    }
   );
 
   return axios;

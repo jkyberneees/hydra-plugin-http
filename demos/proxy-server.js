@@ -8,11 +8,11 @@ const http = require('http');
 hydra.use(
   new HydraHttpPlugin({
     proxy: {
-      routesCache: true,
+      routesCache: true
       // optional http-proxy module config params https://www.npmjs.com/package/http-proxy#options
       // excluding built-in http server instantiation params, which will be excluded
-    },
-  }),
+    }
+  })
 );
 
 (async () => {
@@ -27,9 +27,9 @@ hydra.use(
       redis: {
         host: '127.0.0.1',
         port: 6379,
-        db: 15,
-      },
-    },
+        db: 15
+      }
+    }
   });
   await hydra.registerService();
 

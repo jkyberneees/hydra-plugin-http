@@ -27,11 +27,11 @@ class HydraHttpPlugin extends HydraPlugin {
     this.hydra.http = {
       request: require('./libs/request')(this.hydra, this.config),
       proxy: require('./libs/proxy')(this.hydra, this.config),
-      lb: require('./libs/lb')(this.hydra, this.config),
+      lb: require('./libs/lb')(this.hydra, this.config)
     };
   }
 }
 
 module.exports = {
-  HydraHttpPlugin,
+  HydraHttpPlugin
 };

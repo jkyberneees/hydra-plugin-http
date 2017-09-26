@@ -10,9 +10,9 @@ const httpProxy = require('http-proxy');
 module.exports = (hydra, config) => {
   config.proxy = Object.assign(
     {
-      routesCache: true,
+      routesCache: true
     },
-    config.proxy || {},
+    config.proxy || {}
   );
 
   let routesCache = null;
@@ -42,7 +42,7 @@ module.exports = (hydra, config) => {
               if (await hydra.hasServicePresence(service)) {
                 return {
                   name: service,
-                  path: subpath,
+                  path: subpath
                 };
               }
             }
@@ -57,7 +57,7 @@ module.exports = (hydra, config) => {
             if (await hydra.hasServicePresence(service)) {
               return {
                 name: service,
-                path,
+                path
               };
             }
           }
@@ -88,7 +88,7 @@ module.exports = (hydra, config) => {
       httpServer.addListener('request', async (req, res) => {
         try {
           proxy.web(req, res, {
-            target: await hydra.http.proxy.translate(req, true),
+            target: await hydra.http.proxy.translate(req, true)
           });
         } catch (err) {
           const msgparts = (err.message || '500:Internal Server Error').split(':', 2);
@@ -105,6 +105,6 @@ module.exports = (hydra, config) => {
       });
 
       return proxy;
-    },
+    }
   };
 };

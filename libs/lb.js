@@ -14,7 +14,7 @@ const handlers = {
           axios({
             method: 'get',
             url: `${baseUrl}/${config.healthPath}`,
-            timeout: config.timeout,
+            timeout: config.timeout
           })
             .then(() => {
               resolve(baseUrl);
@@ -22,7 +22,7 @@ const handlers = {
             .catch(() => {});
 
           setTimeout(() => reject(new Error('503:Service Unavailable!')), config.timeout);
-        }),
+        })
       );
     });
 
@@ -33,7 +33,7 @@ const handlers = {
     const srv = presences[0];
 
     return `http://${srv.ip}:${srv.port}`;
-  },
+  }
 };
 
 module.exports = (hydra, config) => {
@@ -41,7 +41,7 @@ module.exports = (hydra, config) => {
     hydra.emit('http-plugin-lb', {
       name,
       level,
-      data,
+      data
     });
 
   config.lb = Object.assign(
@@ -50,15 +50,15 @@ module.exports = (hydra, config) => {
         name: 'race',
         timeout: 3000,
         nodes: 3,
-        healthPath: '_health',
-      },
+        healthPath: '_health'
+      }
     },
-    config.lb || {},
+    config.lb || {}
   );
 
   assert(
     config.lb.strategy.handler || handlers[config.lb.strategy.name],
-    `The load balancer '${config.lb.strategy.name}' strategy handler is required!`,
+    `The load balancer '${config.lb.strategy.name}' strategy handler is required!`
   );
 
   return {
@@ -76,7 +76,7 @@ module.exports = (hydra, config) => {
           service,
           translation: url,
           strategy: config.lb.strategy.name,
-          responseTime: new Date().getTime() - now,
+          responseTime: new Date().getTime() - now
         });
 
         return url;
@@ -85,6 +85,6 @@ module.exports = (hydra, config) => {
 
         throw err;
       }
-    },
+    }
   };
 };
