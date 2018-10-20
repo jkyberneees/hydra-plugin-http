@@ -1,4 +1,7 @@
 # hydra-plugin-http
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/jkyberneees/hydra-plugin-http.svg)](https://greenkeeper.io/)
+
 Hydra plugin that enables traditional HTTP requests, routing and proxy capabilities to your micro-service infrastructure based on [hydra](https://www.hydramicroservice.com/).
 
 # Usage
