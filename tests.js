@@ -1,13 +1,13 @@
-/* eslint no-undef:0, import/no-extraneous-dependencies:0, 
+/* eslint no-undef:0, import/no-extraneous-dependencies:0,
 import/no-unresolved:0, global-require:0 */
 
-const HydraHttpPlugin = require('./index').HydraHttpPlugin;
-const expect = require('chai').expect;
-const hydra = require('hydra');
+const HydraHttpPlugin = require('./index').HydraHttpPlugin
+const expect = require('chai').expect
+const hydra = require('hydra')
 
 describe('Hydra HTTP plugin', () => {
   it('init hydra', async () => {
-    hydra.use(new HydraHttpPlugin());
+    hydra.use(new HydraHttpPlugin())
 
     await hydra.init({
       hydra: {
@@ -35,93 +35,93 @@ describe('Hydra HTTP plugin', () => {
           }
         }
       }
-    });
+    })
 
-    await hydra.registerService();
-  });
+    await hydra.registerService()
+  })
 
   it('lb.translate should succeed', async () => {
-    const baseUrl = await hydra.http.lb.translate('express-service-test');
-    expect(baseUrl).to.equal('http://127.0.0.1:3000');
-  });
+    const baseUrl = await hydra.http.lb.translate('express-service-test')
+    expect(baseUrl).to.equal('http://127.0.0.1:3000')
+  })
 
   it('lb.translate should fail', async () => {
     try {
-      await hydra.http.lb.translate('unavailable-service');
+      await hydra.http.lb.translate('unavailable-service')
     } catch (err) {
-      expect(err instanceof Error).to.equal(true);
+      expect(err instanceof Error).to.equal(true)
     }
-  });
+  })
 
   it('request should succeed - http://127.0.0.1:3000/v1/welcome', async () => {
-    const res = await hydra.http.request('http://127.0.0.1:3000/v1/welcome');
-    expect(res.status).to.equal(200);
-  });
+    const res = await hydra.http.request('http://127.0.0.1:3000/v1/welcome')
+    expect(res.status).to.equal(200)
+  })
 
   it('request should succeed - /express-service-test/v1/welcome', async () => {
-    const res = await hydra.http.request('/express-service-test/v1/welcome');
-    expect(res.status).to.equal(200);
-  });
+    const res = await hydra.http.request('/express-service-test/v1/welcome')
+    expect(res.status).to.equal(200)
+  })
 
   it('request should succeed - /v1/welcome', async () => {
-    const res = await hydra.http.request('/v1/welcome');
-    expect(res.status).to.equal(200);
-  });
+    const res = await hydra.http.request('/v1/welcome')
+    expect(res.status).to.equal(200)
+  })
 
   it('request should fail - /v1/welcome222', async () => {
     try {
-      await hydra.http.request('/v1/welcome222');
+      await hydra.http.request('/v1/welcome222')
     } catch (err) {
-      expect(err instanceof Error).to.equal(true);
+      expect(err instanceof Error).to.equal(true)
     }
-  });
+  })
 
   it('proxy.findService should succeed - /v1/welcome?age=31', async () => {
-    const res = await hydra.http.proxy.findService('/v1/welcome?age=31', 'get');
-    expect(res.name).to.equal('express-service-test');
-    expect(res.path).to.equal('/v1/welcome?age=31');
-  });
+    const res = await hydra.http.proxy.findService('/v1/welcome?age=31', 'get')
+    expect(res.name).to.equal('express-service-test')
+    expect(res.path).to.equal('/v1/welcome?age=31')
+  })
 
   it('proxy.findService should succeed - /express-service-test/v1/welcome', async () => {
-    const res = await hydra.http.proxy.findService('/express-service-test/v1/welcome', 'get');
-    expect(res.name).to.equal('express-service-test');
-  });
+    const res = await hydra.http.proxy.findService('/express-service-test/v1/welcome', 'get')
+    expect(res.name).to.equal('express-service-test')
+  })
 
   it('proxy.findService should fail - /express-service-test/v1/welcome222', async () => {
-    const res = await hydra.http.proxy.findService('/express-service-test/v1/welcome222', 'get');
-    expect(res).to.equal(null);
-  });
+    const res = await hydra.http.proxy.findService('/express-service-test/v1/welcome222', 'get')
+    expect(res).to.equal(null)
+  })
 
   it('proxy.findService should fail - /unexisting-service/v1/welcome', async () => {
-    const res = await hydra.http.proxy.findService('/unexisting-service/v1/welcome', 'get');
-    expect(res).to.equal(null);
-  });
+    const res = await hydra.http.proxy.findService('/unexisting-service/v1/welcome', 'get')
+    expect(res).to.equal(null)
+  })
 
   it('proxy.findService should fail - /v1/welcome222', async () => {
-    const res = await hydra.http.proxy.findService('/v1/welcome222', 'get');
-    expect(res).to.equal(null);
-  });
+    const res = await hydra.http.proxy.findService('/v1/welcome222', 'get')
+    expect(res).to.equal(null)
+  })
 
   it('proxy.attach', async () => {
-    const http = require('http');
-    const server = http.createServer();
+    const http = require('http')
+    const server = http.createServer()
 
-    hydra.http.proxy.attach(server);
-    server.listen(5050);
+    hydra.http.proxy.attach(server)
+    server.listen(5050)
 
-    let res = await hydra.http.request('http://localhost:5050/v1/welcome');
-    expect(res.status).to.equal(200);
-    expect(res.data).to.equal('Hello World!');
+    let res = await hydra.http.request('http://localhost:5050/v1/welcome')
+    expect(res.status).to.equal(200)
+    expect(res.data).to.equal('Hello World!')
 
     try {
-      res = await hydra.http.request('http://localhost:5050/v1/welcome222');
+      res = await hydra.http.request('http://localhost:5050/v1/welcome222')
     } catch (err) {
-      expect(err.response.status).to.equal(503);
+      expect(err.response.status).to.equal(503)
     }
-    server.close();
-  });
+    server.close()
+  })
 
   it('shutdown hydra', async () => {
-    hydra.shutdown();
-  });
-});
+    hydra.shutdown()
+  })
+})
