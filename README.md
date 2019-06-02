@@ -1,6 +1,8 @@
 # hydra-plugin-http
 Hydra plugin that enables traditional HTTP requests, routing and proxy capabilities to your micro-service infrastructure based on [hydra](https://www.hydramicroservice.com/).
 
+> v1.x+ uses `fast-proxy` **(17791.10 reqs/sec)** instead of `http-proxy` *(408.97 reqs/sec)* 
+
 # Usage
 ## Install Dependencies
 ```bash
