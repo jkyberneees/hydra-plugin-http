@@ -2,7 +2,7 @@
 The hydra-http-plugin uses an internal load balancer that is responsible for the selection of the "optimum" computing node for a target service in the micro-service cluster. It is used for internal HTTP calls and requests proxy.
 
 The Load Balancer(lb) selection strategy can be extended for custom requirements. Built-in supported strategies are:
-* **race**: The load balancer select N number of available nodes(ordered by their presence report) and perform a health check, the faster node on respond is selected. While this is the default strategy, the configuration options are described below:
+* **race**: The load balancer select N number of available nodes(ordered by their presence report) and perform a health check, the faster node on respond is selected. The configuration options are described below:
 ```js
 hydra.use(new HydraHttpPlugin({
     lb: {
@@ -15,7 +15,7 @@ hydra.use(new HydraHttpPlugin({
     }
 }));
 ```
-* **last-presence**: The load balancer select the node who last reported presence status. This method is intended to be used when the service is already balanced or clustered, `Nginx Load Balancer` for example.  
+* **last-presence**: (default) The load balancer select the node who last reported presence status. This method is intended to be used when the service is already balanced or clustered, `Nginx Load Balancer` for example.  
 Usage and configuration:
 ```js
 hydra.use(new HydraHttpPlugin({
