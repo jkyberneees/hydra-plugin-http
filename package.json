@@ -30,10 +30,11 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.2.0",
     "hydra": "^1.7.1",
-    "nyc": "^14.1.1",
-    "standard": "^12.0.1"
+    "mocha": "^6.2.2",
+    "nyc": "^15.0.0",
+    "standard": "^14.3.1"
   },
   "engines": {
     "node": ">=7.x"
